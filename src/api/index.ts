@@ -1,15 +1,15 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 
-interface API {
-  get: (url: string, options?: RequestParams) => Promise<AxiosResponse>
+interface Api {
+  get: (url: string, options?: RequestParams) => ApiResponse
 }
 
 const request = axios.create({
   baseURL: 'https://jsonplaceholder.typicode.com'
 })
 
-export const api: API = {
-  async get(url: string, options?: RequestParams): Promise<AxiosResponse> {
+export const api: Api = {
+  async get(url: string, options?: RequestParams): ApiResponse {
     const response = await request.get(url, options)
     return response
   }
