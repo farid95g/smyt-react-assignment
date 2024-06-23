@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Layout } from '@smyt/components'
-import { Post } from '@smyt/types'
+import { Layout, PostList } from '@smyt/components'
+import type { Post } from '@smyt/types'
 import { postService } from '@smyt/services'
 
 export const App: React.FC = () => {
@@ -18,11 +18,7 @@ export const App: React.FC = () => {
   return (
     <div>
       <Layout>
-        <div>
-          {posts.map((post: Post) => (
-            <h1 key={post.id}>{post.title}</h1>
-          ))}
-        </div>
+        <PostList posts={posts} />
       </Layout>
     </div>
   )

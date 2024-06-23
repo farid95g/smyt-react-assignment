@@ -1,6 +1,5 @@
-import { AxiosResponse } from 'axios'
 import { api } from '@smyt/api'
-import { Post } from '@smyt/types'
+import type { Post } from '@smyt/types'
 import { POSTS_PER_REQUEST } from '@smyt/utils'
 
 interface PostService {
@@ -13,7 +12,7 @@ export const postService: PostService = {
       params: { _start, _limit: POSTS_PER_REQUEST }
     }
 
-    const response: AxiosResponse = await api.get('/photos', requestParams)
+    const response = await api.get('/photos', requestParams)
     return response.data
   }
 }
