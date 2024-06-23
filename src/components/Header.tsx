@@ -8,7 +8,6 @@ import {
   InputBase,
   Container
 } from '@mui/material'
-import AdbIcon from '@mui/icons-material/Adb'
 import SearchIcon from '@mui/icons-material/Search'
 
 const Search = styled('div')(({ theme }) => ({
@@ -53,21 +52,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   }
 }))
 
-function ResponsiveAppBar() {
+export const Header: React.FC = () => {
   return (
-    <AppBar position='static'>
-      <Container maxWidth='xl'>
-        <Toolbar disableGutters>
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center'
-            }}
-          >
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <AdbIcon sx={{ mr: 1 }} />
+    <header>
+      <AppBar position='static'>
+        <Container maxWidth='xl'>
+          <Toolbar disableGutters>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}
+            >
               <Typography
                 variant='h6'
                 noWrap
@@ -83,28 +81,20 @@ function ResponsiveAppBar() {
               >
                 SMYT REACT ASSIGNMENT
               </Typography>
+
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder='Search…'
+                  inputProps={{ 'aria-label': 'search' }}
+                />
+              </Search>
             </Box>
-
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder='Search…'
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </Search>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
-  )
-}
-
-export const Header: React.FC = () => {
-  return (
-    <header>
-      <ResponsiveAppBar />
+          </Toolbar>
+        </Container>
+      </AppBar>
     </header>
   )
 }
