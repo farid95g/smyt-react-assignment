@@ -1,7 +1,5 @@
 import React from 'react'
 
 export const App: React.FC = () => {
-  return (
-    <div>App Component</div>
-  )
+  return <div>App Component</div>
 }
