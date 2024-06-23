@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { Layout } from '@smyt/components'
-import { api } from '@smyt/api'
 import { Post } from '@smyt/types'
+import { postService } from '@smyt/services'
 
 export const App: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([])
 
   useEffect(() => {
-    const requestParams: RequestParams = {
-      params: { _start: 0, _limit: 10 }
+    const loadPosts = async () => {
+      const posts = (await postService.loadPosts(0)) as Post[]
+      setPosts(posts)
     }
 
-    const fetchData = async () => {
-      const response = await api.get('/photos', requestParams)
-      setPosts(response.data as Post[])
-    }
-
-    fetchData()
+    loadPosts()
   }, [])
 
   return (
