@@ -7,7 +7,7 @@ export const Toast: React.FC = () => {
   const { isOpen, toggleIsOpen } = useContext(ToastContext)!
 
   const handleClose = useCallback(
-    (event?: React.SyntheticEvent | Event, reason?: string) => {
+    (_event?: React.SyntheticEvent | Event, reason?: string) => {
       if (reason === 'clickaway') {
         return
       }
