@@ -1,13 +1,6 @@
 import React from 'react'
 import { styled, alpha } from '@mui/material/styles'
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Typography,
-  InputBase,
-  Container
-} from '@mui/material'
+import { AppBar, Box, Typography, InputBase, Container } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 
 const Search = styled('div')(({ theme }) => ({
@@ -56,43 +49,44 @@ export const Header: React.FC = () => {
   return (
     <header>
       <AppBar position='static'>
-        <Container maxWidth='xl'>
-          <Toolbar disableGutters>
-            <Box
+        <Container
+          maxWidth='xl'
+          sx={{ height: '4rem', display: 'flex', alignItems: 'center' }}
+        >
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
+            <Typography
+              variant='h6'
+              noWrap
+              component='a'
+              href='#app-bar-with-responsive-menu'
               sx={{
-                flexGrow: 1,
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center'
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.15rem',
+                color: 'inherit',
+                textDecoration: 'none'
               }}
             >
-              <Typography
-                variant='h6'
-                noWrap
-                component='a'
-                href='#app-bar-with-responsive-menu'
-                sx={{
-                  fontFamily: 'monospace',
-                  fontWeight: 700,
-                  letterSpacing: '.15rem',
-                  color: 'inherit',
-                  textDecoration: 'none'
-                }}
-              >
-                SMYT REACT ASSIGNMENT
-              </Typography>
+              SMYT REACT ASSIGNMENT
+            </Typography>
 
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder='Search…'
-                  inputProps={{ 'aria-label': 'search' }}
-                />
-              </Search>
-            </Box>
-          </Toolbar>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder='Search…'
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
+          </Box>
         </Container>
       </AppBar>
     </header>
