@@ -1,16 +1,26 @@
-import React from 'react'
+import React, { useCallback, useContext } from 'react'
 import { Snackbar, Alert } from '@mui/material'
+import { ToastContext } from '@smyt/context'
+import { ToastVisibility } from '@smyt/utils'
 
-interface ToastProps {
-  isOpen: boolean
-  handleClose: (event?: React.SyntheticEvent | Event, reason?: string) => void
-}
+export const Toast: React.FC = () => {
+  const { isOpen, toggleIsOpen } = useContext(ToastContext)!
 
-export const Toast: React.FC<ToastProps> = ({ isOpen, handleClose }) => {
+  const handleClose = useCallback(
+    (event?: React.SyntheticEvent | Event, reason?: string) => {
+      if (reason === 'clickaway') {
+        return
+      }
+
+      toggleIsOpen(ToastVisibility.HIDE)
+    },
+    []
+  )
+
   return (
     <Snackbar
       open={isOpen}
-      autoHideDuration={10000}
+      autoHideDuration={7000}
       onClose={handleClose}
       anchorOrigin={{
         vertical: 'top',
