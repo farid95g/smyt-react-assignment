@@ -12,7 +12,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <Header />
       <Container
         maxWidth='xl'
-        sx={{ padding: '1rem 0' }}
+        sx={{ padding: '5rem 0 1rem', minHeight: 'calc(100% - 4rem)' }}
       >
         {children}
       </Container>

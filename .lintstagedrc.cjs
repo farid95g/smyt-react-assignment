@@ -1,6 +1,6 @@
 module.exports = {
     './src/**/*.{js,jsx,ts,tsx}': [
-        "npm run lint:fix",
-        "npm run format"
+        "npm run lint:staged",
+        "npm run format:staged"
     ]
 }
