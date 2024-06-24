@@ -4,6 +4,8 @@ import { POSTS_PER_REQUEST } from '@smyt/utils'
 
 interface PostService {
   loadPosts: (_start: number) => Promise<Post[]>
+
+  getPostById: (id: number) => Promise<Post>
 }
 
 export const postService: PostService = {
@@ -13,6 +15,11 @@ export const postService: PostService = {
     }
 
     const response = await api.get('/photos', requestParams)
+    return response.data
+  },
+
+  async getPostById(id: number): Promise<Post> {
+    const response = await api.get(`/photos/${id}`)
     return response.data
   }
 }
