@@ -48,7 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export const Header: React.FC = () => {
   return (
     <header>
-      <AppBar position='static'>
+      <AppBar position='fixed'>
         <Container
           maxWidth='xl'
           sx={{ height: '4rem', display: 'flex', alignItems: 'center' }}

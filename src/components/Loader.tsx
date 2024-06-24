@@ -3,8 +3,21 @@ import { Box, CircularProgress } from '@mui/material'
 
 export const Loader: React.FC = () => {
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-      <CircularProgress />
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 'calc(100% - 4rem)',
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        zIndex: 2
+      }}
+    >
+      <CircularProgress size={100} />
     </Box>
   )
 }
