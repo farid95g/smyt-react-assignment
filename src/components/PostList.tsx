@@ -20,6 +20,7 @@ export const PostList: React.FC<PostListProps> = ({ posts }) => {
           key={post.id}
         >
           <PostItem
+            id={post.id}
             title={post.title}
             thumbnailUrl={post.thumbnailUrl}
           />

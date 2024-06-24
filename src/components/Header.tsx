@@ -2,6 +2,7 @@ import React from 'react'
 import { styled, alpha } from '@mui/material/styles'
 import { AppBar, Box, Typography, InputBase, Container } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
+import { Link as RouterLink } from 'react-router-dom'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -61,21 +62,25 @@ export const Header: React.FC = () => {
               alignItems: 'center'
             }}
           >
-            <Typography
-              variant='h6'
-              noWrap
-              component='a'
-              href='#app-bar-with-responsive-menu'
-              sx={{
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.15rem',
-                color: 'inherit',
-                textDecoration: 'none'
-              }}
+            <RouterLink
+              to='/'
+              style={{ all: 'unset', cursor: 'pointer' }}
             >
-              SMYT REACT ASSIGNMENT
-            </Typography>
+              <Typography
+                variant='h6'
+                noWrap
+                component='span'
+                sx={{
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                  letterSpacing: '.15rem',
+                  color: 'inherit',
+                  textDecoration: 'none'
+                }}
+              >
+                SMYT REACT ASSIGNMENT
+              </Typography>
+            </RouterLink>
 
             <Search>
               <SearchIconWrapper>

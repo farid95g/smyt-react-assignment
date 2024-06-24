@@ -1,5 +1,8 @@
 import ReactDOM from 'react-dom/client'
-import { App } from '@smyt/App'
+import { RouterProvider } from 'react-router-dom'
+import { router } from '@smyt/router'
 import '@smyt/index.css'
 
-ReactDOM.createRoot(document.getElementById('root')!).render(<App />)
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <RouterProvider router={router} />
+)

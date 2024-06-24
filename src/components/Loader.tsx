@@ -13,7 +13,7 @@ export const Loader: React.FC = () => {
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        backgroundColor: 'rgba(255, 255, 255, 0.75)',
         zIndex: 2
       }}
     >
