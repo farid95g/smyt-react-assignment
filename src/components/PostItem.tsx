@@ -17,7 +17,7 @@ export const PostItem: React.FC<PostProps> = ({ id, title, thumbnailUrl }) => {
       to={`/post/${id}`}
       style={{ all: 'unset', cursor: 'pointer' }}
     >
-      <Card sx={{ maxWidth: 345, height: '100%' }}>
+      <Card sx={{ height: '100%' }}>
         <CardActionArea sx={{ height: '100%' }}>
           <CardMedia
             component='img'

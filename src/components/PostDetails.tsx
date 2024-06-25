@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import { Post } from '@smyt/types'
+import type { Post } from '@smyt/types'
 
 type PostDetailsProps = Pick<Post, 'title' | 'url'>
 

@@ -1,6 +1,6 @@
-import React, { useReducer } from 'react'
+import React, { useCallback, useReducer } from 'react'
 import { ToastContext, toastReducer } from '@smyt/context'
-import { ToastAction, ToastContextType } from '@smyt/types'
+import type { ToastAction, ToastContextType } from '@smyt/types'
 
 interface ToastProviderProps {
   children: React.ReactNode
@@ -9,7 +9,9 @@ interface ToastProviderProps {
 export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(toastReducer, { isOpen: false })
 
-  const toggleIsOpen = (type: string) => dispatch({ type } as ToastAction)
+  const toggleIsOpen = useCallback((type: string) => {
+    dispatch({ type } as ToastAction)
+  }, [])
 
   const toastContext = {
     isOpen: state.isOpen,

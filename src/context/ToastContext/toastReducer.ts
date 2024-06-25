@@ -1,4 +1,4 @@
-import { ToastAction } from '@smyt/types'
+import type { ToastAction } from '@smyt/types'
 import { ToastVisibility } from '@smyt/utils'
 
 interface ToastState {

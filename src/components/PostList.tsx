@@ -1,6 +1,6 @@
 import React from 'react'
 import Grid from '@mui/material/Grid'
-import { Post } from '@smyt/types'
+import type { Post } from '@smyt/types'
 import { PostItem } from '@smyt/components'
 
 interface PostListProps {
