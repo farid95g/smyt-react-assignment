@@ -1,3 +1,5 @@
+import { ToastVisibility } from '@smyt/utils'
+
 export interface Post {
   albumId: number
   id: number
@@ -7,10 +9,12 @@ export interface Post {
 }
 
 export interface ToastContextType {
+  message: string
   isOpen: boolean
-  toggleIsOpen: (type: string) => void
+  toggleIsOpen: (type: string, message?: string) => void
 }
 
 export interface ToastAction {
   type: ToastVisibility.SHOW | ToastVisibility.HIDE
+  payload?: string
 }

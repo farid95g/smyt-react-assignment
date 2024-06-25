@@ -3,3 +3,7 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+
+.toast .MuiAlert-message {
+	padding: 3px 0;
+}

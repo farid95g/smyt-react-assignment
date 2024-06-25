@@ -15,9 +15,9 @@ export const PostPage: React.FC = () => {
     const getPostById = async (id: number) => {
       try {
         const post = await postService.getPostById(id)
-        setSelectedPost(post)
+        setSelectedPost(post as Post)
       } catch (e) {
-        toggleIsOpen(ToastVisibility.SHOW)
+        toggleIsOpen(ToastVisibility.SHOW, (e as ApiError).message)
       }
     }
 

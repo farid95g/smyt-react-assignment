@@ -7,13 +7,17 @@ interface ToastProviderProps {
 }
 
 export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
-  const [state, dispatch] = useReducer(toastReducer, { isOpen: false })
+  const [state, dispatch] = useReducer(toastReducer, {
+    message: '',
+    isOpen: false
+  })
 
-  const toggleIsOpen = useCallback((type: string) => {
-    dispatch({ type } as ToastAction)
+  const toggleIsOpen = useCallback((type: string, message?: string) => {
+    dispatch({ type, payload: message } as ToastAction)
   }, [])
 
   const toastContext = {
+    message: state.message,
     isOpen: state.isOpen,
     toggleIsOpen
   } as ToastContextType
