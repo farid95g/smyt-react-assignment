@@ -4,15 +4,15 @@ import type { Post } from '@smyt/types'
 import { POSTS_PER_REQUEST } from '@smyt/utils'
 
 interface PostService {
-  loadPosts: (_start: number) => Promise<Post[] | AxiosError>
+  loadPosts: (_start: number, query: string) => Promise<Post[] | AxiosError>
 
   getPostById: (id: number) => Promise<Post | AxiosError>
 }
 
 export const postService: PostService = {
-  async loadPosts(_start: number): Promise<Post[] | AxiosError> {
+  async loadPosts(_start: number, query: string): Promise<Post[] | AxiosError> {
     const requestParams: RequestParams = {
-      params: { _start, _limit: POSTS_PER_REQUEST }
+      params: { _start, _limit: POSTS_PER_REQUEST, title_like: query }
     }
 
     try {
