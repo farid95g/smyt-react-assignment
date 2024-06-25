@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useRef } from 'react'
+import Typography from '@mui/material/Typography'
 import { Loader, PostList } from '@smyt/components'
 import { PostContext } from '@smyt/context'
 import { PostActionTypes } from '@smyt/utils'
 
 export const HomePage: React.FC = () => {
-  const { isLoading, posts, loadPosts, query } = useContext(PostContext)!
+  const { isLoading, posts, loadPosts, query, isLoadedAll } =
+    useContext(PostContext)!
   const scrollObserverTarget = useRef(null)
 
   useEffect(() => {
@@ -17,7 +19,7 @@ export const HomePage: React.FC = () => {
     const scrollObserver = new IntersectionObserver(
       (entries: IntersectionObserverEntry[]) => {
         const [entry] = entries
-        if (entry.isIntersecting && posts.length) {
+        if (entry.isIntersecting && posts.length && !isLoadedAll) {
           loadPosts(PostActionTypes.LOAD_POSTS, query)
         }
       },
@@ -40,7 +42,16 @@ export const HomePage: React.FC = () => {
     <>
       {isLoading && <Loader />}
 
-      <PostList posts={posts} />
+      {!posts.length && !isLoading && !!query.length ? (
+        <Typography
+          variant='h3'
+          gutterBottom
+        >
+          No posts found with keyword {query}
+        </Typography>
+      ) : (
+        <PostList posts={posts} />
+      )}
 
       <div ref={scrollObserverTarget} />
     </>

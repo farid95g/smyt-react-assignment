@@ -19,7 +19,8 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
     isLoading: false,
     posts: [],
     start: 0,
-    query: ''
+    query: '',
+    isLoadedAll: false
   })
 
   const updateStart = (start: number) => {
@@ -42,6 +43,10 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
           query as string
         )) as Post[]
         dispatch({ type, payload: posts } as PostAction)
+        dispatch({
+          type: PostActionTypes.IS_LOADED_ALL,
+          payload: posts.length === 0
+        })
       } catch (e) {
         toggleIsOpen(ToastVisibility.SHOW, (e as ApiError).message)
       } finally {
@@ -65,6 +70,7 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
     posts: state.posts,
     start: state.start,
     query: state.query,
+    isLoadedAll: state.isLoadedAll,
     updateStart,
     toggleLoader,
     loadPosts,
