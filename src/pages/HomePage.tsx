@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
+import React, { useCallback, useContext, useEffect, useRef } from 'react'
 import { Loader, PostList } from '@smyt/components'
 import type { Post } from '@smyt/types'
 import { postService } from '@smyt/services'
@@ -12,24 +6,23 @@ import { PostContext, ToastContext } from '@smyt/context'
 import { PostActionTypes, ToastVisibility } from '@smyt/utils'
 
 export const HomePage: React.FC = () => {
-  const { posts, loadPosts } = useContext(PostContext)!
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const { isLoading, posts, toggleLoader, loadPosts } = useContext(PostContext)!
   const scrollObserverTarget = useRef(null)
   const { toggleIsOpen } = useContext(ToastContext)!
 
   const fetchPosts = useCallback(
     async (start: number) => {
-      setIsLoading(true)
       try {
+        toggleLoader(true)
         const posts = (await postService.loadPosts(start)) as Post[]
         loadPosts(PostActionTypes.LOAD_POSTS, posts)
       } catch (e) {
         toggleIsOpen(ToastVisibility.SHOW, (e as ApiError).message)
       } finally {
-        setIsLoading(false)
+        toggleLoader(false)
       }
     },
-    [toggleIsOpen]
+    [toggleIsOpen, loadPosts, toggleLoader]
   )
 
   useEffect(() => {

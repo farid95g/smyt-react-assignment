@@ -6,6 +6,7 @@ import type {
   PostActionType,
   PostContextType
 } from '@smyt/types'
+import { PostActionTypes } from '@smyt/utils'
 
 interface PostProviderProps {
   children: React.ReactNode
@@ -18,6 +19,10 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
     query: ''
   })
 
+  const toggleLoader = useCallback((isVisible: boolean) => {
+    dispatch({ type: PostActionTypes.IS_LOADING, payload: isVisible })
+  }, [])
+
   const loadPosts = useCallback((type: PostActionType, posts: Post[]) => {
     dispatch({ type, payload: posts } as PostAction)
   }, [])
@@ -26,6 +31,7 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
     isLoading: state.isLoading,
     posts: state.posts,
     query: state.query,
+    toggleLoader,
     loadPosts
   } as PostContextType
 

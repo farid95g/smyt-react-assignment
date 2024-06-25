@@ -14,22 +14,14 @@ export const postReducer = (state: PostState, action: PostAction) => {
     case PostActionTypes.IS_LOADING: {
       return {
         ...state,
-        isLoading: true
+        isLoading: payload as boolean
       }
     }
 
     case PostActionTypes.LOAD_POSTS: {
       return {
         ...state,
-        posts: [...state.posts, ...(payload as Post[])],
-        isLoading: false
-      }
-    }
-
-    case PostActionTypes.SET_SEARCH_QUERY: {
-      return {
-        ...state,
-        query: payload
+        posts: [...state.posts, ...(payload as Post[])]
       }
     }
 

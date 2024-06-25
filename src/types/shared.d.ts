@@ -19,7 +19,7 @@ export interface ToastAction {
   payload?: string
 }
 
-type PostActionPayload = Post[] | string
+type PostActionPayload = boolean | Post[] | string
 export type PostActionType =
   | PostActionTypes.IS_LOADING
   | PostActionTypes.LOAD_POSTS
@@ -34,5 +34,6 @@ export interface PostContextType {
   isLoading: boolean
   posts: Post[]
   query: string
-  loadPosts: (type: PostActionType, posts: Post[]) => void
+  toggleLoader: (isVisible: boolean) => void
+  loadPosts: (type: PostActionType, items: Post[]) => void
 }
