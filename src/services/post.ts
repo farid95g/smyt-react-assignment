@@ -7,6 +7,8 @@ interface PostService {
   loadPosts: (_start: number) => Promise<Post[] | AxiosError>
 
   getPostById: (id: number) => Promise<Post | AxiosError>
+
+  searchPostsByTitle: (query: string) => Promise<Post[] | AxiosError>
 }
 
 export const postService: PostService = {
@@ -26,6 +28,15 @@ export const postService: PostService = {
   async getPostById(id: number): Promise<Post | AxiosError> {
     try {
       const response = await api.get(`/photos/${id}`)
+      return response.data
+    } catch (e) {
+      return Promise.reject(e)
+    }
+  },
+
+  async searchPostsByTitle(query: string): Promise<Post[] | AxiosError> {
+    try {
+      const response = await api.get(`/photos?title_like=${query}`)
       return response.data
     } catch (e) {
       return Promise.reject(e)
