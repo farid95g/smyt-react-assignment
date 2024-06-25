@@ -1,10 +1,10 @@
 import React, { useCallback, useContext } from 'react'
-import { Snackbar, Alert } from '@mui/material'
+import { Snackbar, Alert, Typography } from '@mui/material'
 import { ToastContext } from '@smyt/context'
 import { ToastVisibility } from '@smyt/utils'
 
 export const Toast: React.FC = () => {
-  const { isOpen, toggleIsOpen } = useContext(ToastContext)!
+  const { message, isOpen, toggleIsOpen } = useContext(ToastContext)!
 
   const handleClose = useCallback(
     (_event?: React.SyntheticEvent | Event, reason?: string) => {
@@ -20,12 +20,13 @@ export const Toast: React.FC = () => {
   return (
     <Snackbar
       open={isOpen}
-      autoHideDuration={7000}
+      autoHideDuration={5000}
       onClose={handleClose}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'right'
       }}
+      className='toast'
     >
       <Alert
         onClose={handleClose}
@@ -33,7 +34,18 @@ export const Toast: React.FC = () => {
         variant='filled'
         sx={{ width: '100%' }}
       >
-        Something went wrong! Please, try again!
+        <Typography
+          variant='h6'
+          gutterBottom
+        >
+          {message}
+        </Typography>
+        <Typography
+          variant='subtitle1'
+          gutterBottom
+        >
+          Something went wrong! Please, try again!
+        </Typography>
       </Alert>
     </Snackbar>
   )

@@ -24,7 +24,7 @@ export const HomePage: React.FC = () => {
         const posts = (await postService.loadPosts(start)) as Post[]
         setPosts((prevPosts: Post[]) => [...prevPosts, ...posts])
       } catch (e) {
-        toggleIsOpen(ToastVisibility.SHOW)
+        toggleIsOpen(ToastVisibility.SHOW, (e as ApiError).message)
       } finally {
         setIsLoading(false)
       }
