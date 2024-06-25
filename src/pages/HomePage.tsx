@@ -19,7 +19,7 @@ export const HomePage: React.FC = () => {
     const scrollObserver = new IntersectionObserver(
       (entries: IntersectionObserverEntry[]) => {
         const [entry] = entries
-        if (entry.isIntersecting && !isLoadedAll) {
+        if (entry.isIntersecting && posts.length && !isLoadedAll) {
           loadPosts(PostActionTypes.LOAD_POSTS, query)
         }
       },
