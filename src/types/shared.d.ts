@@ -8,14 +8,16 @@ export interface Post {
   thumbnailUrl: string
 }
 
+export type ToastActionType = ToastVisibility.SHOW | ToastVisibility.HIDE
+
 export interface ToastContextType {
   message: string
   isOpen: boolean
-  toggleIsOpen: (type: string, message?: string) => void
+  toggleIsOpen: (type: ToastActionType, message?: string) => void
 }
 
 export interface ToastAction {
-  type: ToastVisibility.SHOW | ToastVisibility.HIDE
+  type: ToastActionType
   payload?: string
 }
 
