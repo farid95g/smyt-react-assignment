@@ -42,7 +42,7 @@ export const HomePage: React.FC = () => {
     <>
       {isLoading && <Loader />}
 
-      {!posts.length && !isLoading ? (
+      {!posts.length && !isLoading && !!query.length ? (
         <Typography
           variant='h3'
           gutterBottom
