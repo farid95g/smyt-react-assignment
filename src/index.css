@@ -7,3 +7,28 @@
 .toast .MuiAlert-message {
 	padding: 3px 0;
 }
+
+.main-container {
+	padding-left: 16px !important;
+	padding-right: 16px !important;
+}
+
+@media (max-width: 768px) {
+	.main-container {
+		padding-top: 8rem !important;
+	}
+
+	.header-container {
+		height: 7rem !important;
+		padding: 10px 0;
+	}
+
+	.header-wrapper {
+		flex-direction: column !important;
+		gap: 16px;
+	}
+
+	.post-details-image {
+		max-width: 100%;
+	}
+}

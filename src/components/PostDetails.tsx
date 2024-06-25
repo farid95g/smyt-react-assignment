@@ -10,12 +10,14 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ title, url }) => {
       <Typography
         variant='h2'
         gutterBottom
+        sx={{ wordBreak: 'break-all' }}
       >
         {title}
       </Typography>
       <img
         src={url}
         alt={title}
+        className='post-details-image'
       />
     </div>
   )

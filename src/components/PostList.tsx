@@ -16,7 +16,10 @@ export const PostList: React.FC<PostListProps> = ({ posts }) => {
       {posts.map((post: Post) => (
         <Grid
           item
-          xs={3}
+          xs={12}
+          sm={6}
+          md={4}
+          lg={3}
           key={post.id}
         >
           <PostItem

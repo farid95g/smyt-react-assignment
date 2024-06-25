@@ -25,7 +25,7 @@ export const PostPage: React.FC = () => {
   }, [id, toggleIsOpen])
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       {selectedPost && (
         <PostDetails
           title={selectedPost.title}

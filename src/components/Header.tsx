@@ -10,6 +10,7 @@ export const Header: React.FC = () => {
         <Container
           maxWidth='xl'
           sx={{ height: '4rem', display: 'flex', alignItems: 'center' }}
+          className='header-container'
         >
           <Box
             sx={{
@@ -18,6 +19,7 @@ export const Header: React.FC = () => {
               justifyContent: 'space-between',
               alignItems: 'center'
             }}
+            className='header-wrapper'
           >
             <RouterLink
               to='/'
