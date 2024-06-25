@@ -29,6 +29,7 @@ export type PostActionType =
   | PostActionTypes.SET_SEARCH_QUERY
   | PostActionTypes.SEARCH_POSTS
   | PostActionTypes.EMPTY_POSTS
+  | PostActionTypes.IS_LOADED_ALL
 
 export interface PostAction {
   type: PostActionType
@@ -40,6 +41,7 @@ export interface PostContextType {
   posts: Post[]
   start: number
   query: string
+  isLoadedAll: boolean
   updateStart: (start: number) => void
   toggleLoader: (isVisible: boolean) => void
   loadPosts: (

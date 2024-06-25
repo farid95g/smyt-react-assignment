@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useRef } from 'react'
 import Typography from '@mui/material/Typography'
 import { Loader, PostList } from '@smyt/components'
 import { PostContext } from '@smyt/context'
-import { POSTS_PER_REQUEST, PostActionTypes } from '@smyt/utils'
+import { PostActionTypes } from '@smyt/utils'
 
 export const HomePage: React.FC = () => {
-  const { isLoading, posts, loadPosts, query } = useContext(PostContext)!
+  const { isLoading, posts, loadPosts, query, isLoadedAll } =
+    useContext(PostContext)!
   const scrollObserverTarget = useRef(null)
 
   useEffect(() => {
@@ -18,7 +19,7 @@ export const HomePage: React.FC = () => {
     const scrollObserver = new IntersectionObserver(
       (entries: IntersectionObserverEntry[]) => {
         const [entry] = entries
-        if (entry.isIntersecting && posts.length >= POSTS_PER_REQUEST) {
+        if (entry.isIntersecting && !isLoadedAll) {
           loadPosts(PostActionTypes.LOAD_POSTS, query)
         }
       },
