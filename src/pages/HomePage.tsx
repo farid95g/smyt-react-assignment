@@ -1,32 +1,14 @@
-import React, { useCallback, useContext, useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { Loader, PostList } from '@smyt/components'
-import type { Post } from '@smyt/types'
-import { postService } from '@smyt/services'
-import { PostContext, ToastContext } from '@smyt/context'
-import { PostActionTypes, ToastVisibility } from '@smyt/utils'
+import { PostContext } from '@smyt/context'
+import { PostActionTypes } from '@smyt/utils'
 
 export const HomePage: React.FC = () => {
-  const { isLoading, posts, toggleLoader, loadPosts } = useContext(PostContext)!
+  const { isLoading, posts, loadPosts, query } = useContext(PostContext)!
   const scrollObserverTarget = useRef(null)
-  const { toggleIsOpen } = useContext(ToastContext)!
-
-  const fetchPosts = useCallback(
-    async (start: number) => {
-      try {
-        toggleLoader(true)
-        const posts = (await postService.loadPosts(start)) as Post[]
-        loadPosts(PostActionTypes.LOAD_POSTS, posts)
-      } catch (e) {
-        toggleIsOpen(ToastVisibility.SHOW, (e as ApiError).message)
-      } finally {
-        toggleLoader(false)
-      }
-    },
-    [toggleIsOpen, loadPosts, toggleLoader]
-  )
 
   useEffect(() => {
-    fetchPosts(posts.length)
+    loadPosts(PostActionTypes.LOAD_POSTS, query)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -36,7 +18,7 @@ export const HomePage: React.FC = () => {
       (entries: IntersectionObserverEntry[]) => {
         const [entry] = entries
         if (entry.isIntersecting && posts.length) {
-          fetchPosts(posts.length)
+          loadPosts(PostActionTypes.LOAD_POSTS, query)
         }
       },
       { threshold: 1 }
@@ -51,7 +33,8 @@ export const HomePage: React.FC = () => {
         scrollObserver.unobserve(target)
       }
     }
-  }, [scrollObserverTarget, posts, fetchPosts])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollObserverTarget, posts, loadPosts])
 
   return (
     <>

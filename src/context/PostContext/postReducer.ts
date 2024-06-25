@@ -4,6 +4,7 @@ import { PostActionTypes } from '@smyt/utils'
 interface PostState {
   isLoading: boolean
   posts: Post[]
+  start: number
   query: string
 }
 
@@ -22,6 +23,34 @@ export const postReducer = (state: PostState, action: PostAction) => {
       return {
         ...state,
         posts: [...state.posts, ...(payload as Post[])]
+      }
+    }
+
+    case PostActionTypes.SET_START: {
+      return {
+        ...state,
+        start: payload as number
+      }
+    }
+
+    case PostActionTypes.SET_SEARCH_QUERY: {
+      return {
+        ...state,
+        query: payload as string
+      }
+    }
+
+    case PostActionTypes.SEARCH_POSTS: {
+      return {
+        ...state,
+        posts: payload as Post[]
+      }
+    }
+
+    case PostActionTypes.EMPTY_POSTS: {
+      return {
+        ...state,
+        posts: []
       }
     }
 

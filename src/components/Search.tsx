@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { styled, alpha } from '@mui/material/styles'
 import { InputBase } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
-import { postService } from '@smyt/services'
-import { Post } from '@smyt/types'
+import { PostContext } from '@smyt/context'
+import { PostActionTypes } from '@smyt/utils'
 
 const SearchBar = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -48,7 +48,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 
 export const Search: React.FC = () => {
-  const [search, setSearch] = useState<string>('')
+  const { query, setSearchQuery, loadPosts, emptyPosts, updateStart } =
+    useContext(PostContext)!
   const [isMounted, setIsMounted] = useState<boolean>(false)
   let searchTimeout: ReturnType<typeof setTimeout>
 
@@ -56,7 +57,8 @@ export const Search: React.FC = () => {
     clearTimeout(searchTimeout)
 
     searchTimeout = setTimeout((): void => {
-      setSearch((event.target as HTMLInputElement).value)
+      setSearchQuery((event.target as HTMLInputElement).value)
+      updateStart(0)
     }, 300)
   }
 
@@ -65,19 +67,18 @@ export const Search: React.FC = () => {
   useEffect(() => {
     const searchPostsByTitle = async () => {
       if (isMounted) {
-        try {
-          const posts = (await postService.searchPostsByTitle(search)) as Post[]
-          console.log(posts)
-        } catch (e) {
-          console.log(e)
-        } finally {
-          console.log('FINISHED')
+        if (query.trim().length) {
+          loadPosts(PostActionTypes.SEARCH_POSTS, query)
+        } else {
+          emptyPosts()
+          loadPosts(PostActionTypes.LOAD_POSTS)
         }
       }
     }
 
     searchPostsByTitle()
-  }, [search])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query])
 
   return (
     <SearchBar>
@@ -88,7 +89,7 @@ export const Search: React.FC = () => {
         placeholder='Search…'
         inputProps={{ 'aria-label': 'search' }}
         onChange={handleSearchChange}
-        defaultValue={search}
+        defaultValue={query}
       />
     </SearchBar>
   )
