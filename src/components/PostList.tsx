@@ -1,6 +1,6 @@
 import React from 'react'
 import Grid from '@mui/material/Grid'
-import { Post } from '@smyt/types'
+import type { Post } from '@smyt/types'
 import { PostItem } from '@smyt/components'
 
 interface PostListProps {
@@ -16,7 +16,10 @@ export const PostList: React.FC<PostListProps> = ({ posts }) => {
       {posts.map((post: Post) => (
         <Grid
           item
-          xs={3}
+          xs={12}
+          sm={6}
+          md={4}
+          lg={3}
           key={post.id}
         >
           <PostItem
