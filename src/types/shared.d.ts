@@ -1,4 +1,4 @@
-import { ToastVisibility } from '@smyt/utils'
+import { PostActionTypes, ToastVisibility } from '@smyt/utils'
 
 export interface Post {
   albumId: number
@@ -17,4 +17,22 @@ export interface ToastContextType {
 export interface ToastAction {
   type: ToastVisibility.SHOW | ToastVisibility.HIDE
   payload?: string
+}
+
+type PostActionPayload = Post[] | string
+export type PostActionType =
+  | PostActionTypes.IS_LOADING
+  | PostActionTypes.LOAD_POSTS
+  | PostActionTypes.SET_SEARCH_QUERY
+
+export interface PostAction {
+  type: PostActionType
+  payload: PostActionPayload
+}
+
+export interface PostContextType {
+  isLoading: boolean
+  posts: Post[]
+  query: string
+  loadPosts: (type: PostActionType, posts: Post[]) => void
 }

@@ -8,21 +8,21 @@ import React, {
 import { Loader, PostList } from '@smyt/components'
 import type { Post } from '@smyt/types'
 import { postService } from '@smyt/services'
-import { ToastContext } from '@smyt/context'
-import { ToastVisibility } from '@smyt/utils'
+import { PostContext, ToastContext } from '@smyt/context'
+import { PostActionTypes, ToastVisibility } from '@smyt/utils'
 
 export const HomePage: React.FC = () => {
-  const [posts, setPosts] = useState<Post[]>([])
+  const { posts, loadPosts } = useContext(PostContext)!
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const scrollObserverTarget = useRef(null)
   const { toggleIsOpen } = useContext(ToastContext)!
 
-  const loadPosts = useCallback(
+  const fetchPosts = useCallback(
     async (start: number) => {
       setIsLoading(true)
       try {
         const posts = (await postService.loadPosts(start)) as Post[]
-        setPosts((prevPosts: Post[]) => [...prevPosts, ...posts])
+        loadPosts(PostActionTypes.LOAD_POSTS, posts)
       } catch (e) {
         toggleIsOpen(ToastVisibility.SHOW, (e as ApiError).message)
       } finally {
@@ -33,7 +33,7 @@ export const HomePage: React.FC = () => {
   )
 
   useEffect(() => {
-    loadPosts(posts.length)
+    fetchPosts(posts.length)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -43,7 +43,7 @@ export const HomePage: React.FC = () => {
       (entries: IntersectionObserverEntry[]) => {
         const [entry] = entries
         if (entry.isIntersecting && posts.length) {
-          loadPosts(posts.length)
+          fetchPosts(posts.length)
         }
       },
       { threshold: 1 }
@@ -58,7 +58,7 @@ export const HomePage: React.FC = () => {
         scrollObserver.unobserve(target)
       }
     }
-  }, [scrollObserverTarget, posts, loadPosts])
+  }, [scrollObserverTarget, posts, fetchPosts])
 
   return (
     <>
