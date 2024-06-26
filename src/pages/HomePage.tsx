@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import Typography from '@mui/material/Typography'
-import { Loader, PostList } from '@smyt/components'
+import { Loader, PostList, Retry } from '@smyt/components'
 import { PostContext } from '@smyt/context'
 import { PostActionTypes } from '@smyt/utils'
 
 export const HomePage: React.FC = () => {
-  const { isLoading, posts, loadPosts, query, isLoadedAll } =
+  const { isLoading, posts, loadPosts, query, isLoadedAll, error } =
     useContext(PostContext)!
   const scrollObserverTarget = useRef(null)
 
@@ -40,7 +40,21 @@ export const HomePage: React.FC = () => {
 
   return (
     <>
-      {isLoading && <Loader />}
+      {isLoading && !error && <Loader />}
+
+      {error && (
+        <Retry
+          error={error}
+          retryFailedRequest={() =>
+            loadPosts(
+              query.length
+                ? PostActionTypes.SEARCH_POSTS
+                : PostActionTypes.LOAD_POSTS,
+              query
+            )
+          }
+        />
+      )}
 
       {!posts.length && !isLoading && !!query.length ? (
         <Typography

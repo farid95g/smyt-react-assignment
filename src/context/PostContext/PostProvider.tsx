@@ -20,7 +20,8 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
     posts: [],
     start: 0,
     query: '',
-    isLoadedAll: false
+    isLoadedAll: false,
+    error: ''
   })
 
   const updateStart = (start: number) => {
@@ -37,6 +38,8 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
       query?: string
     ) => {
       try {
+        dispatch({ type: PostActionTypes.SET_ERROR, payload: '' })
+        toggleIsOpen(ToastVisibility.HIDE)
         toggleLoader(true)
         const posts = (await postService.loadPosts(
           state.start,
@@ -47,11 +50,15 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
           type: PostActionTypes.IS_LOADED_ALL,
           payload: posts.length === 0
         })
+        updateStart(state.start + POSTS_PER_REQUEST)
       } catch (e) {
+        dispatch({
+          type: PostActionTypes.SET_ERROR,
+          payload: (e as ApiError).message
+        })
         toggleIsOpen(ToastVisibility.SHOW, (e as ApiError).message)
       } finally {
         toggleLoader(false)
-        updateStart(state.start + POSTS_PER_REQUEST)
       }
     },
     [state.start, toggleLoader, toggleIsOpen]
@@ -71,6 +78,7 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
     start: state.start,
     query: state.query,
     isLoadedAll: state.isLoadedAll,
+    error: state.error,
     updateStart,
     toggleLoader,
     loadPosts,
