@@ -30,6 +30,7 @@ export type PostActionType =
   | PostActionTypes.SEARCH_POSTS
   | PostActionTypes.EMPTY_POSTS
   | PostActionTypes.IS_LOADED_ALL
+  | PostActionTypes.SET_ERROR
 
 export interface PostAction {
   type: PostActionType
@@ -42,6 +43,7 @@ export interface PostContextType {
   start: number
   query: string
   isLoadedAll: boolean
+  error: string
   updateStart: (start: number) => void
   toggleLoader: (isVisible: boolean) => void
   loadPosts: (

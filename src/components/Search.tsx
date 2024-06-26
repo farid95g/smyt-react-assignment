@@ -59,7 +59,7 @@ export const Search: React.FC = () => {
     searchTimeout = setTimeout((): void => {
       setSearchQuery((event.target as HTMLInputElement).value)
       updateStart(0)
-    }, 300)
+    }, 400)
   }
 
   useEffect(() => setIsMounted(true), [])
