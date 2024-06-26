@@ -7,6 +7,7 @@ interface PostState {
   start: number
   query: string
   isLoadedAll: boolean
+  error: string
 }
 
 export const postReducer = (state: PostState, action: PostAction) => {
@@ -59,6 +60,13 @@ export const postReducer = (state: PostState, action: PostAction) => {
       return {
         ...state,
         isLoadedAll: payload as boolean
+      }
+    }
+
+    case PostActionTypes.SET_ERROR: {
+      return {
+        ...state,
+        error: payload as string
       }
     }
 

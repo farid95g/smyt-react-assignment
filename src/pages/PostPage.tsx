@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Typography } from '@mui/material'
 import type { Post } from '@smyt/types'
 import { postService } from '@smyt/services'
-import { PostDetails } from '@smyt/components'
+import { PostDetails, Retry } from '@smyt/components'
 import { ToastContext } from '@smyt/context'
 import { ToastVisibility } from '@smyt/utils'
 
@@ -28,10 +27,6 @@ export const PostPage: React.FC = () => {
     [toggleIsOpen]
   )
 
-  const retryFailedRequest = () => {
-    getPostById(+id!)
-  }
-
   useEffect(() => {
     getPostById(+id!)
   }, [id, toggleIsOpen, getPostById])
@@ -39,26 +34,12 @@ export const PostPage: React.FC = () => {
   return (
     <div style={{ width: '100%' }}>
       {error && (
-        <Typography
-          variant='h3'
-          gutterBottom
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            gap: '16px'
-          }}
-        >
-          {error}
-          <Button
-            variant='contained'
-            size='large'
-            onClick={retryFailedRequest}
-          >
-            Retry request
-          </Button>
-        </Typography>
+        <Retry
+          error={error}
+          retryFailedRequest={() => getPostById(+id!)}
+        />
       )}
+
       {selectedPost && (
         <PostDetails
           title={selectedPost.title}
