@@ -1,4 +1,8 @@
-import { PostActionTypes, ToastVisibility } from '@smyt/utils'
+import {
+  ModalActionTypes,
+  PostActionTypes,
+  ToastActionTypes
+} from '@smyt/utils'
 
 export interface Post {
   albumId: number
@@ -8,7 +12,7 @@ export interface Post {
   thumbnailUrl: string
 }
 
-export type ToastActionType = ToastVisibility.SHOW | ToastVisibility.HIDE
+export type ToastActionType = ToastActionTypes.SHOW | ToastActionTypes.HIDE
 
 export interface ToastContextType {
   message: string
@@ -52,4 +56,15 @@ export interface PostContextType {
   ) => void
   setSearchQuery: (query: string) => void
   emptyPosts: () => void
+}
+
+export type ModalActionType = ModalActionType.SHOW | ModalActionTypes.HIDE
+
+export interface ModalAction {
+  type: ModalActionType
+}
+
+export interface ModalContextType {
+  isOpen: boolean
+  toggleModalVisibility: (type: ModalActionType) => void
 }

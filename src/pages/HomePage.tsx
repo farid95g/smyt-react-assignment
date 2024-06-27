@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import Typography from '@mui/material/Typography'
-import { Loader, PostList, Retry } from '@smyt/components'
+import { Loader, PostList, Modal } from '@smyt/components'
 import { PostContext } from '@smyt/context'
 import { PostActionTypes } from '@smyt/utils'
 
@@ -43,9 +43,9 @@ export const HomePage: React.FC = () => {
       {isLoading && !error && <Loader />}
 
       {error && (
-        <Retry
+        <Modal.Retry
           error={error}
-          retryFailedRequest={() =>
+          retry={() =>
             loadPosts(
               query.length
                 ? PostActionTypes.SEARCH_POSTS
