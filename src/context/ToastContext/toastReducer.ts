@@ -1,5 +1,5 @@
 import type { ToastAction } from '@smyt/types'
-import { ToastVisibility } from '@smyt/utils'
+import { ToastActionTypes } from '@smyt/utils'
 
 interface ToastState {
   message?: string
@@ -10,7 +10,7 @@ export const toastReducer = (state: ToastState, action: ToastAction) => {
   const { type, payload } = action
 
   switch (type) {
-    case ToastVisibility.SHOW: {
+    case ToastActionTypes.SHOW: {
       return {
         ...state,
         message: payload,
@@ -18,7 +18,7 @@ export const toastReducer = (state: ToastState, action: ToastAction) => {
       }
     }
 
-    case ToastVisibility.HIDE: {
+    case ToastActionTypes.HIDE: {
       return {
         ...state,
         message: '',

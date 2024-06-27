@@ -1,4 +1,4 @@
-export enum ToastVisibility {
+export enum ToastActionTypes {
   SHOW = 'SHOW',
   HIDE = 'HIDE'
 }
@@ -12,4 +12,9 @@ export enum PostActionTypes {
   EMPTY_POSTS = 'EMPTY_POSTS',
   IS_LOADED_ALL = 'IS_LOADED_ALL',
   SET_ERROR = 'SET_ERROR'
+}
+
+export enum ModalActionTypes {
+  SHOW = 'SHOW',
+  HIDE = 'HIDE'
 }
