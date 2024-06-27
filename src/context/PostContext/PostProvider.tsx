@@ -1,10 +1,16 @@
 import React, { useCallback, useContext, useReducer } from 'react'
-import { PostContext, ToastContext, postReducer } from '@smyt/context'
+import {
+  ModalContext,
+  PostContext,
+  ToastContext,
+  postReducer
+} from '@smyt/context'
 import type { Post, PostAction, PostContextType } from '@smyt/types'
 import {
+  ModalActionTypes,
   POSTS_PER_REQUEST,
   PostActionTypes,
-  ToastVisibility
+  ToastActionTypes
 } from '@smyt/utils'
 import { postService } from '@smyt/services'
 
@@ -14,6 +20,7 @@ interface PostProviderProps {
 
 export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
   const { toggleIsOpen } = useContext(ToastContext)!
+  const { toggleModalVisibility } = useContext(ModalContext)!
 
   const [state, dispatch] = useReducer(postReducer, {
     isLoading: false,
@@ -39,7 +46,8 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
     ) => {
       try {
         dispatch({ type: PostActionTypes.SET_ERROR, payload: '' })
-        toggleIsOpen(ToastVisibility.HIDE)
+        toggleIsOpen(ToastActionTypes.HIDE)
+        toggleModalVisibility(ModalActionTypes.HIDE)
         toggleLoader(true)
         const posts = (await postService.loadPosts(
           state.start,
@@ -56,7 +64,8 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
           type: PostActionTypes.SET_ERROR,
           payload: (e as ApiError).message
         })
-        toggleIsOpen(ToastVisibility.SHOW, (e as ApiError).message)
+        toggleIsOpen(ToastActionTypes.SHOW, (e as ApiError).message)
+        toggleModalVisibility(ModalActionTypes.SHOW)
       } finally {
         toggleLoader(false)
       }

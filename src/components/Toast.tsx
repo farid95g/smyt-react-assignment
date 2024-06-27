@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react'
 import { Snackbar, Alert, Typography } from '@mui/material'
 import { ToastContext } from '@smyt/context'
-import { ToastVisibility } from '@smyt/utils'
+import { ToastActionTypes } from '@smyt/utils'
 
 export const Toast: React.FC = () => {
   const { message, isOpen, toggleIsOpen } = useContext(ToastContext)!
@@ -12,7 +12,7 @@ export const Toast: React.FC = () => {
         return
       }
 
-      toggleIsOpen(ToastVisibility.HIDE)
+      toggleIsOpen(ToastActionTypes.HIDE)
     },
     []
   )
